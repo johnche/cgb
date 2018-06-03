@@ -103,6 +103,95 @@ void LD_HL_H(Z80* cpu) { setHL(cpu, cpu->h); cpu->m = 2; }
 void LD_HL_L(Z80* cpu) { setHL(cpu, cpu->l); cpu->m = 2; }
 void LD_HL_n(Z80* cpu, uint8_t n) { setHL(cpu, n); cpu->m = 3; }
 
+
+void dispatch(Z80* cpu, int opcode) {
+	int n = 0;
+	switch(opcode) {
+		case 0x00: NOP(cpu); break;
+
+		case 0x06: LD_B_n(cpu, n); break;
+
+		case 0x0E: LD_C_n(cpu, n); break;
+
+		case 0x16: LD_D_n(cpu, n); break;
+
+		case 0x1E: LD_E_n(cpu, n); break;
+
+		case 0x26: LD_H_n(cpu, n); break;
+
+		case 0x2E: LD_L_n(cpu, n); break;
+
+		case 0x36: LD_HL_n(cpu, n); break;
+
+		case 0x40: LD_B_B(cpu); break;
+		case 0x41: LD_B_C(cpu); break;
+		case 0x42: LD_B_D(cpu); break;
+		case 0x43: LD_B_E(cpu); break;
+		case 0x44: LD_B_H(cpu); break;
+		case 0x45: LD_B_L(cpu); break;
+		case 0x46: LD_B_HL(cpu); break;
+
+		case 0x48: LD_C_B(cpu); break;
+		case 0x49: LD_C_C(cpu); break;
+		case 0x4A: LD_C_D(cpu); break;
+		case 0x4B: LD_C_E(cpu); break;
+		case 0x4C: LD_C_H(cpu); break;
+		case 0x4D: LD_C_L(cpu); break;
+		case 0x4E: LD_C_HL(cpu); break;
+
+		case 0x50: LD_D_B(cpu); break;
+		case 0x51: LD_D_C(cpu); break;
+		case 0x52: LD_D_D(cpu); break;
+		case 0x53: LD_D_E(cpu); break;
+		case 0x54: LD_D_H(cpu); break;
+		case 0x55: LD_D_L(cpu); break;
+		case 0x56: LD_D_HL(cpu); break;
+
+		case 0x58: LD_E_B(cpu); break;
+		case 0x59: LD_E_C(cpu); break;
+		case 0x5A: LD_E_D(cpu); break;
+		case 0x5B: LD_E_E(cpu); break;
+		case 0x5C: LD_E_H(cpu); break;
+		case 0x5D: LD_E_L(cpu); break;
+		case 0x5E: LD_E_HL(cpu); break;
+
+		case 0x60: LD_H_B(cpu); break;
+		case 0x61: LD_H_C(cpu); break;
+		case 0x62: LD_H_D(cpu); break;
+		case 0x63: LD_H_E(cpu); break;
+		case 0x64: LD_H_H(cpu); break;
+		case 0x65: LD_H_L(cpu); break;
+		case 0x66: LD_H_HL(cpu); break;
+
+		case 0x68: LD_L_B(cpu); break;
+		case 0x69: LD_L_C(cpu); break;
+		case 0x6A: LD_L_D(cpu); break;
+		case 0x6B: LD_L_E(cpu); break;
+		case 0x6C: LD_L_H(cpu); break;
+		case 0x6D: LD_L_L(cpu); break;
+		case 0x6E: LD_L_HL(cpu); break;
+
+		case 0x70: LD_HL_B(cpu); break;
+		case 0x71: LD_HL_C(cpu); break;
+		case 0x72: LD_HL_D(cpu); break;
+		case 0x73: LD_HL_E(cpu); break;
+		case 0x74: LD_HL_H(cpu); break;
+		case 0x75: LD_HL_L(cpu); break;
+
+		case 0x78: LD_A_B(cpu); break;
+		case 0x79: LD_A_C(cpu); break;
+		case 0x7A: LD_A_D(cpu); break;
+		case 0x7B: LD_A_E(cpu); break;
+		case 0x7C: LD_A_H(cpu);break;
+		case 0x7D: LD_A_L(cpu); break;
+		case 0x7F: LD_A_A(cpu); break;
+		default:
+			printf("Missing instruction 0x%02X. Exiting..\n", opcode);
+			// TODO Print register states
+			exit(1);
+	}
+}
+
 void reset(Z80* cpu) {
 	cpu->a = 0;
 	cpu->b = 0;
@@ -116,5 +205,16 @@ void reset(Z80* cpu) {
 	cpu->t = 0;
 	cpu->clock.m = 0;
 	cpu->clock.t = 0;
+}
+
+void updateClock(Z80* cpu) {
+	cpu->clock.m += cpu->m;
+	cpu->clock.t += cpu->t;
+}
+
+void cpuDispatcher(Z80* cpu) {
+	while(1) {
+		updateClock(cpu);
+	}
 }
 
