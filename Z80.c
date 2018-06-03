@@ -130,7 +130,7 @@ void dispatch(Z80* cpu, int opcode) {
 		case 0x44: LD_B_H(cpu); break;
 		case 0x45: LD_B_L(cpu); break;
 		case 0x46: LD_B_HL(cpu); break;
-
+		case 0x47: LD_B_A(cpu); break;
 		case 0x48: LD_C_B(cpu); break;
 		case 0x49: LD_C_C(cpu); break;
 		case 0x4A: LD_C_D(cpu); break;
@@ -138,7 +138,7 @@ void dispatch(Z80* cpu, int opcode) {
 		case 0x4C: LD_C_H(cpu); break;
 		case 0x4D: LD_C_L(cpu); break;
 		case 0x4E: LD_C_HL(cpu); break;
-
+		case 0x4F: LD_C_A(cpu); break;
 		case 0x50: LD_D_B(cpu); break;
 		case 0x51: LD_D_C(cpu); break;
 		case 0x52: LD_D_D(cpu); break;
@@ -146,7 +146,7 @@ void dispatch(Z80* cpu, int opcode) {
 		case 0x54: LD_D_H(cpu); break;
 		case 0x55: LD_D_L(cpu); break;
 		case 0x56: LD_D_HL(cpu); break;
-
+		case 0x57: LD_D_A(cpu); break;
 		case 0x58: LD_E_B(cpu); break;
 		case 0x59: LD_E_C(cpu); break;
 		case 0x5A: LD_E_D(cpu); break;
@@ -154,7 +154,7 @@ void dispatch(Z80* cpu, int opcode) {
 		case 0x5C: LD_E_H(cpu); break;
 		case 0x5D: LD_E_L(cpu); break;
 		case 0x5E: LD_E_HL(cpu); break;
-
+		case 0x5F: LD_E_A(cpu); break;
 		case 0x60: LD_H_B(cpu); break;
 		case 0x61: LD_H_C(cpu); break;
 		case 0x62: LD_H_D(cpu); break;
@@ -162,7 +162,7 @@ void dispatch(Z80* cpu, int opcode) {
 		case 0x64: LD_H_H(cpu); break;
 		case 0x65: LD_H_L(cpu); break;
 		case 0x66: LD_H_HL(cpu); break;
-
+		case 0x67: LD_H_A(cpu); break;
 		case 0x68: LD_L_B(cpu); break;
 		case 0x69: LD_L_C(cpu); break;
 		case 0x6A: LD_L_D(cpu); break;
@@ -170,7 +170,7 @@ void dispatch(Z80* cpu, int opcode) {
 		case 0x6C: LD_L_H(cpu); break;
 		case 0x6D: LD_L_L(cpu); break;
 		case 0x6E: LD_L_HL(cpu); break;
-
+		case 0x6F: LD_L_A(cpu); break;
 		case 0x70: LD_HL_B(cpu); break;
 		case 0x71: LD_HL_C(cpu); break;
 		case 0x72: LD_HL_D(cpu); break;
