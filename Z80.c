@@ -103,3 +103,18 @@ void LD_HL_H(Z80* cpu) { setHL(cpu, cpu->h); cpu->m = 2; }
 void LD_HL_L(Z80* cpu) { setHL(cpu, cpu->l); cpu->m = 2; }
 void LD_HL_n(Z80* cpu, uint8_t n) { setHL(cpu, n); cpu->m = 3; }
 
+void reset(Z80* cpu) {
+	cpu->a = 0;
+	cpu->b = 0;
+	cpu->c = 0;
+	cpu->d = 0;
+	cpu->e = 0;
+	cpu->h = 0;
+	cpu->l = 0;
+	cpu->f = 0;
+	cpu->m = 0;
+	cpu->t = 0;
+	cpu->clock.m = 0;
+	cpu->clock.t = 0;
+}
+
