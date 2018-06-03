@@ -13,8 +13,8 @@ typedef struct CPU{
 	uint8_t a, b, c, d, e, h, l, f;
 
 	// 16-bit registers
-	unsigned int pc; // Program counter
-	unsigned int sp; // Stack pointer
+	uint16_t pc; // Program counter
+	uint16_t sp; // Stack pointer
 
 	// Clock for last instruction
 	unsigned int m;
