@@ -34,7 +34,7 @@ uint8_t* addressBus(uint16_t address) {
 	if (address >= 0xFF80 && address <= 0xFFFF)
 		return zeropage_ram[address - 0xFF80];
 
-	fprintf(stderr, "adressBus received undefined address: %X, exiting.\n", address);
+	fprintf(stderr, "adressBus received undefined address: 0x%X, exiting.\n", address);
 	exit(1);
 }
 
