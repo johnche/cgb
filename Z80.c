@@ -5,6 +5,16 @@ Z80* Z80_init() {
 	return &cpu;
 }
 
+void Z80_printCPUState(Z80* cpu) {
+	printf("8-bit Register states:\n");
+	printf("A: %d, B: %d, C: %d, D: %d, ", cpu->a, cpu->b, cpu->c, cpu->d);
+	printf("E: %d, H: %d, L: %d, F: %d\n", cpu->e, cpu->h, cpu->l, cpu->d);
+	printf("16-bit Register states:\n");
+	printf("AF: %d, BC: %d, DE: %d, HL: %d\n", getAF(cpu), getBC(cpu), getDE(cpu), getHL(cpu));
+	printf("Clock:\n");
+	printf("m: %d, t: %d\n", cpu->m, cpu->t);
+}
+
 /* m is a machine cycle, which are 4 clock cycles */
 
 void NOP(Z80* cpu) { cpu->m = 1; }
@@ -187,7 +197,7 @@ void dispatch(Z80* cpu, int opcode) {
 		case 0x7F: LD_A_A(cpu); break;
 		default:
 			printf("Missing instruction 0x%02X. Exiting..\n", opcode);
-			// TODO Print register states
+			Z80_printCPUState(cpu);
 			exit(1);
 	}
 }
