@@ -1,5 +1,6 @@
 #include "Z80.h"
 #include <stdio.h>
+#include <stdlib.h>
 
 Z80* Z80_init() {
 	Z80 cpu;

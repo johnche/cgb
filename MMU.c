@@ -1,5 +1,6 @@
 #include <stdint.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 uint8_t rom[0x7FFF];
 uint8_t video_ram[0x1FFF];
