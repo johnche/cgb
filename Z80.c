@@ -1,4 +1,5 @@
 #include "Z80.h"
+#include <stdio.h>
 
 Z80* Z80_init() {
 	Z80 cpu;
@@ -196,7 +197,7 @@ void dispatch(Z80* cpu, int opcode) {
 		case 0x7D: LD_A_L(cpu); break;
 		case 0x7F: LD_A_A(cpu); break;
 		default:
-			printf("Missing instruction 0x%02X. Exiting..\n", opcode);
+			fprintf(stderr, "Missing instruction 0x%02X. Exiting..\n", opcode);
 			Z80_printCPUState(cpu);
 			exit(1);
 	}
