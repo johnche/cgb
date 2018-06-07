@@ -6,7 +6,7 @@ uint8_t rom[0x7FFF];
 uint8_t video_ram[0x1FFF];
 uint8_t external_ram[0x1FFF]; // cartridge
 uint8_t working_ram[0x1FFF];
-uint8_t working_ram_shadow[0x1FFF]; // Set this = &working_ram!
+uint8_t* working_ram_shadow; // Set this = working_ram!
 uint8_t oam[0x00FF]; // Sprite attrib memory
 uint8_t zeropage_ram[0x007F];
 
@@ -45,5 +45,19 @@ uint8_t readByte(int address) {
 
 uint16_t readShort(int address) { // Z80 word size is 8 bits
 	return readByte(address) | (readByte(address) << 8);
+}
+
+void loadCartridge(char* path) {
+	FILE* f = fopen(path, "rb");
+	if (f == NULL) {
+		printf("Failed to load ROM. Exiting..\n");
+		exit(1);
+	}
+	fread(rom, sizeof(rom), 1, f);
+}
+
+void initMMU() {
+	working_ram_shadow = working_ram;
+	// TODO: run BIOS
 }
 
