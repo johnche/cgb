@@ -1,4 +1,5 @@
 #include "Z80.h"
+#include "MMU.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -245,6 +246,9 @@ void updateClock(Z80* cpu) {
 
 void cpuDispatcher(Z80* cpu) {
 	while(1) {
+		uint8_t op = readByte(cpu->pc);
+		dispatch(cpu, op);
+		cpu->pc++;
 		updateClock(cpu);
 	}
 }
