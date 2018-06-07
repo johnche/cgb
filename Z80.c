@@ -22,7 +22,7 @@ void setHL(Z80* cpu, uint16_t value) { setPair(&cpu->h, &cpu->l, value); }
 
 
 Z80* Z80_init() {
-	Z80 cpu;
+	Z80 cpu = {0};
 	return &cpu;
 }
 
