@@ -1,22 +1,8 @@
-# File to compile
-#OBJS = 01_hello_SDL.cpp
-NAME = basic_window
+all: clean build
 
-# Extension
-EXT = .c
+build: main
 
-# Compiler to use
-#CC = g++
-CC = gcc
+main: MMU.o Z80.o
 
-# Compiler flags
-COMPILER_FLAGS = -w
-
-# Linker flags
-LINKER_FLAGS = -lSDL2
-
-# Output filename
-OBJ_NAME = 01_hello_SDL
-
-all : $(OBJS)
-	$(CC) $(NAME)$(EXT) $(LINKER_FLAGS) -o $(NAME)
+clean:
+	rm -f *.o
