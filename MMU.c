@@ -39,11 +39,11 @@ uint8_t* addressBus(uint16_t address) {
 	exit(1);
 }
 
-uint8_t readByte(int address) {
+uint8_t readByte(uint16_t address) {
 	return *addressBus(address);
 }
 
-uint16_t readShort(int address) { // Z80 word size is 8 bits
+uint16_t readShort(uint16_t address) { // Z80 word size is 8 bits
 	return readByte(address) | (readByte(address + 1) << 8);
 }
 
