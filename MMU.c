@@ -44,7 +44,7 @@ uint8_t readByte(int address) {
 }
 
 uint16_t readShort(int address) { // Z80 word size is 8 bits
-	return readByte(address) | (readByte(address) << 8);
+	return readByte(address) | (readByte(address + 1) << 8);
 }
 
 void loadCartridge(char* path) {
