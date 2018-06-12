@@ -8,8 +8,8 @@ uint16_t getPair(uint8_t r1, uint8_t r2) {
 }
 
 void setPair(uint8_t* r1, uint8_t* r2, uint16_t value) {
-	*r1 = value >> 8;
-	*r2 = value & 255;
+	*r1 = value & 0x00FF;
+	*r2 = (value & 0xFF00) >> 8;
 }
 
 uint16_t getAF(Z80* cpu) { return getPair(cpu->a, cpu->f); }
