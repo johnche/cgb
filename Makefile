@@ -1,3 +1,5 @@
+CFLAGS = -Wall -Wpedantic
+
 all: clean build
 
 build: main

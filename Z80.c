@@ -45,6 +45,8 @@ void Z80_printCPUState(Z80* cpu) {
 	printf("16-bit Register states:\n");
 	printf("AF: %d, BC: %d, DE: %d, HL: %d\n", getAF(cpu), getBC(cpu), getDE(cpu), getHL(cpu));
 	printf("Clock:\n");
+	printf("m: %d, t: %d\n", cpu->clock.m, cpu->clock.t);
+	printf("Intermediate clock:\n");
 	printf("m: %d, t: %d\n", cpu->m, cpu->t);
 }
 
@@ -148,7 +150,7 @@ void LD_HL_n(Z80* cpu, uint8_t n) { setHL(cpu, n); cpu->m = 3; }
 
 
 void dispatch(Z80* cpu, int opcode) {
-	int n = 0;
+	printf("Dispatch opcode: %02X\n", opcode);
 	switch(opcode) {
 		case 0x00: NOP(cpu); break;
 
