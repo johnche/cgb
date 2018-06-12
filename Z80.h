@@ -22,3 +22,5 @@ typedef struct CPU{
 } Z80;
 
 Z80* Z80_init();
+void cpuDispatcher(Z80* cpu);
+
