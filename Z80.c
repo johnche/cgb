@@ -21,6 +21,17 @@ void setBC(Z80* cpu, uint16_t value) { setPair(&cpu->b, &cpu->c, value); }
 void setDE(Z80* cpu, uint16_t value) { setPair(&cpu->d, &cpu->e, value); }
 void setHL(Z80* cpu, uint16_t value) { setPair(&cpu->h, &cpu->l, value); }
 
+uint8_t fetchByte(Z80* cpu) {
+	uint8_t retval = readByte(cpu->pc);
+	cpu->pc += 1;
+	return retval;
+}
+
+uint16_t fetchShort(Z80* cpu) {
+	uint16_t retval = readShort(cpu->pc);
+	cpu->pc += 2;
+	return retval;
+}
 
 Z80* Z80_init() {
 	Z80* cpu = calloc(1, sizeof(Z80));
@@ -141,19 +152,19 @@ void dispatch(Z80* cpu, int opcode) {
 	switch(opcode) {
 		case 0x00: NOP(cpu); break;
 
-		case 0x06: LD_B_n(cpu, n); break;
+		case 0x06: LD_B_n(cpu, fetchByte(cpu)); break;
 
-		case 0x0E: LD_C_n(cpu, n); break;
+		case 0x0E: LD_C_n(cpu, fetchByte(cpu)); break;
 
-		case 0x16: LD_D_n(cpu, n); break;
+		case 0x16: LD_D_n(cpu, fetchByte(cpu)); break;
 
-		case 0x1E: LD_E_n(cpu, n); break;
+		case 0x1E: LD_E_n(cpu, fetchByte(cpu)); break;
 
-		case 0x26: LD_H_n(cpu, n); break;
+		case 0x26: LD_H_n(cpu, fetchByte(cpu)); break;
 
-		case 0x2E: LD_L_n(cpu, n); break;
+		case 0x2E: LD_L_n(cpu, fetchByte(cpu)); break;
 
-		case 0x36: LD_HL_n(cpu, n); break;
+		case 0x36: LD_HL_n(cpu, fetchByte(cpu)); break;
 
 		case 0x40: LD_B_B(cpu); break;
 		case 0x41: LD_B_C(cpu); break;
@@ -246,9 +257,8 @@ void updateClock(Z80* cpu) {
 
 void cpuDispatcher(Z80* cpu) {
 	while(1) {
-		uint8_t op = readByte(cpu->pc);
-		dispatch(cpu, op);
-		cpu->pc++;
+		uint8_t opcode = fetchByte(cpu);
+		dispatch(cpu, opcode);
 		updateClock(cpu);
 	}
 }
