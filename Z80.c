@@ -23,8 +23,8 @@ void setHL(Z80* cpu, uint16_t value) { setPair(&cpu->h, &cpu->l, value); }
 
 
 Z80* Z80_init() {
-	Z80 cpu = {0};
-	return &cpu;
+	Z80* cpu = calloc(1, sizeof(Z80));
+	return cpu;
 }
 
 void Z80_printCPUState(Z80* cpu) {
