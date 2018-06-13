@@ -23,10 +23,10 @@ void setDE(Z80* cpu, uint16_t value) { setPair(&cpu->d, &cpu->e, value); }
 void setHL(Z80* cpu, uint16_t value) { setPair(&cpu->h, &cpu->l, value); }
 
 bool getBit(uint8_t value, uint8_t index) { return (value >> index) & 1; }
-bool isZERO_FLAG(Z80* cpu)		{ return getBit(cpu->f, 7); }
-bool isSUBTRACT_FLAG(Z80* cpu)	{ return getBit(cpu->f, 6); }
-bool isHALFCARRY_FLAG(Z80* cpu)	{ return getBit(cpu->f, 5); }
-bool isCARRY_FLAG(Z80* cpu)		{ return getBit(cpu->f, 4); }
+bool isZERO_FLAG(Z80* cpu) { return getBit(cpu->f, 7); }
+bool isSUBTRACT_FLAG(Z80* cpu) { return getBit(cpu->f, 6); }
+bool isHALFCARRY_FLAG(Z80* cpu) { return getBit(cpu->f, 5); }
+bool isCARRY_FLAG(Z80* cpu) { return getBit(cpu->f, 4); }
 
 uint8_t fetchByte(Z80* cpu) {
 	uint8_t retval = readByte(cpu->pc);
