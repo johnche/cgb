@@ -156,6 +156,22 @@ void LD_HL_L(Z80* cpu) { setHL(cpu, cpu->l); cpu->m = 2; }
 void LD_HL_n(Z80* cpu, uint8_t n) { setHL(cpu, n); cpu->m = 3; }
 
 
+/* Jumps */
+void JP_HL(Z80* cpu) { cpu->pc = getHL(cpu); cpu->m = 1; }
+
+void JP_nn(Z80* cpu, uint16_t nn) { cpu->pc = nn; cpu->m = 3; }
+void JP_NZ_nn(Z80* cpu, uint16_t nn) { if (!isZERO_FLAG(cpu)) cpu->pc = nn; cpu->m = 3; }
+void JP_Z_nn(Z80* cpu, uint16_t nn) { if (isZERO_FLAG(cpu)) cpu->pc = nn; cpu->m = 3; }
+void JP_NC_nn(Z80* cpu, uint16_t nn) { if (!isCARRY_FLAG(cpu)) cpu->pc = nn; cpu->m = 3; }
+void JP_C_nn(Z80* cpu, uint16_t nn) { if (isZERO_FLAG(cpu)) cpu->pc = nn; cpu->m = 3; }
+
+void JR_n(Z80* cpu, uint8_t n) { cpu->pc += n; cpu->m = 2; }
+void JR_NZ_n(Z80* cpu, uint8_t n) { if (!isZERO_FLAG(cpu)) cpu->pc += n; cpu->m = 2; }
+void JR_Z_n(Z80* cpu, uint8_t n) { if (isZERO_FLAG(cpu)) cpu->pc += n; cpu->m = 2; }
+void JR_NC_n(Z80* cpu, uint8_t n) { if (!isCARRY_FLAG(cpu)) cpu->pc += n; cpu->m = 2; }
+void JR_C_n(Z80* cpu, uint8_t n) { if (isZERO_FLAG(cpu)) cpu->pc += n; cpu->m = 2; }
+
+
 void dispatch(Z80* cpu, int opcode) {
 	printf("Dispatch opcode: %02X\n", opcode);
 	switch(opcode) {
@@ -167,13 +183,24 @@ void dispatch(Z80* cpu, int opcode) {
 
 		case 0x16: LD_D_n(cpu, fetchByte(cpu)); break;
 
+		case 0x18: JR_n(cpu, fetchByte(cpu)); break;
+
 		case 0x1E: LD_E_n(cpu, fetchByte(cpu)); break;
+
+		case 0x20: JR_NZ_n(cpu, fetchByte(cpu)); break;
 
 		case 0x26: LD_H_n(cpu, fetchByte(cpu)); break;
 
+		case 0x28: JR_Z_n(cpu, fetchByte(cpu)); break;
+
+
 		case 0x2E: LD_L_n(cpu, fetchByte(cpu)); break;
 
+		case 0x30: JR_NC_n(cpu, fetchByte(cpu)); break;
+
 		case 0x36: LD_HL_n(cpu, fetchByte(cpu)); break;
+
+		case 0x38: JR_C_n(cpu, fetchByte(cpu)); break;
 
 		case 0x40: LD_B_B(cpu); break;
 		case 0x41: LD_B_C(cpu); break;
@@ -237,6 +264,18 @@ void dispatch(Z80* cpu, int opcode) {
 		case 0x7C: LD_A_H(cpu);break;
 		case 0x7D: LD_A_L(cpu); break;
 		case 0x7F: LD_A_A(cpu); break;
+
+		case 0xC2: JP_NZ_nn(cpu, fetchShort(cpu)); break;
+		case 0xC3: JP_nn(cpu, fetchShort(cpu)); break;
+
+		case 0xCA: JP_Z_nn(cpu, fetchShort(cpu)); break;
+
+		case 0xD2: JP_NC_nn(cpu, fetchShort(cpu)); break;
+
+		case 0xDA: JP_C_nn(cpu, fetchShort(cpu)); break;
+
+		case 0xE9: JP_HL(cpu); break;
+
 		default:
 			fprintf(stderr, "Missing instruction 0x%02X. Exiting..\n", opcode);
 			Z80_printCPUState(cpu);
