@@ -1,6 +1,11 @@
 #pragma once
 #include <stdint.h>
 
+#define ZERO_FLAG 0x80
+#define SUBTRACT_FLAG 0x40
+#define HALFCARRY_FLAG 0x20
+#define CARRY_FLAG 0x10
+
 typedef struct cpu_clock {
 	unsigned int m;
 	unsigned int t;

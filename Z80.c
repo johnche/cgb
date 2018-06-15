@@ -28,6 +28,9 @@ bool isSUBTRACT_FLAG(Z80* cpu) { return getBit(cpu->f, 6); }
 bool isHALFCARRY_FLAG(Z80* cpu) { return getBit(cpu->f, 5); }
 bool isCARRY_FLAG(Z80* cpu) { return getBit(cpu->f, 4); }
 
+void setFlag(Z80* cpu, uint8_t FLAG) { cpu->f |= FLAG; }
+void clearFlag(Z80* cpu, uint8_t FLAG) { cpu->f &= ~FLAG; }
+
 uint8_t fetchByte(Z80* cpu) {
 	uint8_t retval = readByte(cpu->pc);
 	cpu->pc += 1;
