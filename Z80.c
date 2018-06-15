@@ -159,6 +159,35 @@ void LD_HL_L(Z80* cpu) { setHL(cpu, cpu->l); cpu->m = 2; }
 void LD_HL_n(Z80* cpu, uint8_t n) { setHL(cpu, n); cpu->m = 3; }
 
 
+/* 8-bit ALU */
+void add_8bit(Z80* cpu, uint8_t* destination, uint8_t value) {
+	uint64_t sum = *destination + value;
+	*destination = sum & 0xFF;
+
+	// Check for carry
+	if (sum > 0xFF)
+		setFlag(cpu, CARRY_FLAG);
+	else
+		clearFlag(cpu, CARRY_FLAG);
+
+	// Check for half carry
+	if (((*destination & 0x0F) + (value & 0x0F)) & 0x0F)
+		setFlag(cpu, HALFCARRY_FLAG);
+	else
+		clearFlag(cpu, HALFCARRY_FLAG);
+
+	// Check for zero
+	if (*destination)
+		clearFlag(cpu, ZERO_FLAG);
+	else
+		setFlag(cpu, ZERO_FLAG);
+
+	// No subtract, clear subtract flag
+	clearFlag(cpu, SUBTRACT_FLAG);
+}
+
+void ADD_A_A(Z80* cpu) { cpu-> m = 1; }
+
 /* Jumps */
 void JP_HL(Z80* cpu) { cpu->pc = getHL(cpu); cpu->m = 1; }
 
