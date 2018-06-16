@@ -161,11 +161,11 @@ void LD_HL_n(Z80* cpu, uint8_t n) { setHL(cpu, n); cpu->m = 3; }
 
 /* 8-bit ALU */
 void add_8bit(Z80* cpu, uint8_t* destination, uint8_t addend) {
-	uint64_t sum = *destination + addend;
+	uint16_t sum = *destination + addend;
 	*destination = sum & 0xFF;
 
 	// Check for carry
-	if (sum > 0xFF)
+	if (sum & 0xFF00)
 		setFlag(cpu, CARRY_FLAG);
 	else
 		clearFlag(cpu, CARRY_FLAG);
