@@ -9,7 +9,6 @@ int main(int argc, char** argv) {
 		initMMU();
 		loadCartridge(argv[1]);
 		Z80* cpu = Z80_init();
-		Z80_printCPUState(cpu);
 		cpuDispatcher(cpu);
 		return 0;
 	}
