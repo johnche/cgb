@@ -171,7 +171,7 @@ void add_8bit(Z80* cpu, uint8_t* destination, uint8_t addend) {
 		clearFlag(cpu, CARRY_FLAG);
 
 	// Check for half carry
-	if (((*destination & 0x0F) + (addend & 0x0F)) & 0x0F)
+	if (((*destination & 0x0F) + (addend & 0x0F)) > 0x0F)
 		setFlag(cpu, HALFCARRY_FLAG);
 	else
 		clearFlag(cpu, HALFCARRY_FLAG);
