@@ -187,6 +187,14 @@ void add_8bit(Z80* cpu, uint8_t* destination, uint8_t addend) {
 }
 
 void ADD_A_A(Z80* cpu) { cpu-> m = 1; }
+void ADD_A_B(Z80* cpu) { add_8bit(cpu, &cpu->a, cpu->b); }
+void ADD_A_C(Z80* cpu) { add_8bit(cpu, &cpu->a, cpu->c); }
+void ADD_A_D(Z80* cpu) { add_8bit(cpu, &cpu->a, cpu->d); }
+void ADD_A_E(Z80* cpu) { add_8bit(cpu, &cpu->a, cpu->e); }
+void ADD_A_H(Z80* cpu) { add_8bit(cpu, &cpu->a, cpu->h); }
+void ADD_A_L(Z80* cpu) { add_8bit(cpu, &cpu->a, cpu->l); }
+void ADD_A_HL(Z80* cpu) { add_8bit(cpu, &cpu->a, getHL(cpu)); }
+void ADD_A_n(Z80* cpu, uint8_t n) { add_8bit(cpu, &cpu->a, n); }
 
 /* Jumps */
 void JP_HL(Z80* cpu) { cpu->pc = getHL(cpu); cpu->m = 1; }
