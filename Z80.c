@@ -160,8 +160,8 @@ void LD_HL_n(Z80* cpu, uint8_t n) { setHL(cpu, n); cpu->m = 3; }
 
 
 /* 8-bit ALU */
-void add_8bit(Z80* cpu, uint8_t* destination, uint8_t value) {
-	uint64_t sum = *destination + value;
+void add_8bit(Z80* cpu, uint8_t* destination, uint8_t addend) {
+	uint64_t sum = *destination + addend;
 	*destination = sum & 0xFF;
 
 	// Check for carry
@@ -171,7 +171,7 @@ void add_8bit(Z80* cpu, uint8_t* destination, uint8_t value) {
 		clearFlag(cpu, CARRY_FLAG);
 
 	// Check for half carry
-	if (((*destination & 0x0F) + (value & 0x0F)) & 0x0F)
+	if (((*destination & 0x0F) + (addend & 0x0F)) & 0x0F)
 		setFlag(cpu, HALFCARRY_FLAG);
 	else
 		clearFlag(cpu, HALFCARRY_FLAG);
