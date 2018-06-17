@@ -199,7 +199,7 @@ void add_8bit(Z80* cpu, uint8_t* destination, uint16_t addend) {
 	clearFlag(cpu, SUBTRACT_FLAG);
 }
 
-void ADD_A_A(Z80* cpu) { cpu-> m = 1; }
+void ADD_A_A(Z80* cpu) { add_8bit(cpu, &cpu->a, cpu->a); cpu->m = 1; }
 void ADD_A_B(Z80* cpu) { add_8bit(cpu, &cpu->a, cpu->b); cpu->m = 1; }
 void ADD_A_C(Z80* cpu) { add_8bit(cpu, &cpu->a, cpu->c); cpu->m = 1; }
 void ADD_A_D(Z80* cpu) { add_8bit(cpu, &cpu->a, cpu->d); cpu->m = 1; }
