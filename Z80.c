@@ -181,7 +181,7 @@ void TestAndSetCarry(Z80* cpu, uint16_t value) {
 		clearFlag(cpu, CARRY_FLAG);
 }
 
-uint8_t sumAndTest_8bit(Z80* cpu, int8_t addend1, int8_t addend2) {
+uint8_t sumAndTest_8bit(Z80* cpu, int8_t addend1, int16_t addend2) {
 	uint16_t sum = addend1 + addend2;
 	uint8_t retval = sum & 0xFF;
 
@@ -192,7 +192,7 @@ uint8_t sumAndTest_8bit(Z80* cpu, int8_t addend1, int8_t addend2) {
 	return retval;
 }
 
-void add_8bit(Z80* cpu, uint8_t* destination, uint8_t addend) {
+void add_8bit(Z80* cpu, uint8_t* destination, uint16_t addend) {
 	*destination = sumAndTest_8bit(cpu, *destination, addend);
 
 	// No subtract, clear subtract flag
