@@ -209,6 +209,21 @@ void ADD_A_L(Z80* cpu) { add_8bit(cpu, &cpu->a, cpu->l); cpu->m = 1; }
 void ADD_A_HL(Z80* cpu) { add_8bit(cpu, &cpu->a, getHL(cpu)); cpu->m = 2; }
 void ADD_A_n(Z80* cpu, uint8_t n) { add_8bit(cpu, &cpu->a, n); cpu->m = 2; }
 
+void adc_8bit(Z80* cpu, uint8_t addend) {
+	add_8bit(cpu, &cpu->a, addend + isCARRY_FLAG(cpu));
+}
+
+void ADC_A_A(Z80* cpu) { cpu->m = 1; }
+void ADC_A_B(Z80* cpu) { adc_8bit(cpu, cpu->b); cpu->m = 1; }
+void ADC_A_C(Z80* cpu) { adc_8bit(cpu, cpu->c); cpu->m = 1; }
+void ADC_A_D(Z80* cpu) { adc_8bit(cpu, cpu->d); cpu->m = 1; }
+void ADC_A_E(Z80* cpu) { adc_8bit(cpu, cpu->e); cpu->m = 1; }
+void ADC_A_H(Z80* cpu) { adc_8bit(cpu, cpu->h); cpu->m = 1; }
+void ADC_A_L(Z80* cpu) { adc_8bit(cpu, cpu->l); cpu->m = 1; }
+void ADC_A_HL(Z80* cpu) { adc_8bit(cpu, getHL(cpu)); cpu->m = 2; }
+void ADC_A_n(Z80* cpu, uint8_t n) { adc_8bit(cpu, n); cpu->m = 2; }
+
+
 /* Jumps */
 void JP_HL(Z80* cpu) { cpu->pc = getHL(cpu); cpu->m = 1; }
 
