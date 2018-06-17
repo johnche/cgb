@@ -160,34 +160,34 @@ void LD_HL_n(Z80* cpu, uint8_t n) { setHL(cpu, n); cpu->m = 3; }
 
 
 /* 8-bit ALU */
-void TestAndSetZero(Z80* cpu, uint8_t value) {
+void setZero(Z80* cpu, uint8_t value) {
 	if (value)
 		clearFlag(cpu, ZERO_FLAG);
 	else
 		setFlag(cpu, ZERO_FLAG);
 }
 
-void TestAndSetHalfCarry(Z80* cpu, uint8_t addend1, uint8_t addend2) {
-	if (( (addend1 & 0x0F) + (addend2 & 0x0F) ) > 0x0F)
+void setHalfCarry(Z80* cpu, int16_t term1, int16_t term2) {
+	if (( (term1 & 0x0F) + (term2 & 0x0F) ) > 0x0F)
 		setFlag(cpu, HALFCARRY_FLAG);
 	else
 		clearFlag(cpu, HALFCARRY_FLAG);
 }
 
-void TestAndSetCarry(Z80* cpu, uint16_t value) {
+void setCarry(Z80* cpu, int16_t value) {
 	if (value & 0xFF00)
 		setFlag(cpu, CARRY_FLAG);
 	else
 		clearFlag(cpu, CARRY_FLAG);
 }
 
-uint8_t sumAndTest_8bit(Z80* cpu, int8_t addend1, int16_t addend2) {
-	uint16_t sum = addend1 + addend2;
+uint8_t sumAndTest_8bit(Z80* cpu, int8_t term1, int16_t term2) {
+	int16_t sum = term1 + term2;
 	uint8_t retval = sum & 0xFF;
 
-	TestAndSetCarry(cpu, sum);
-	TestAndSetHalfCarry(cpu, addend1, addend2);
-	TestAndSetZero(cpu, retval);
+	setCarry(cpu, sum);
+	setHalfCarry(cpu, term1, term2);
+	setZero(cpu, retval);
 
 	return retval;
 }
