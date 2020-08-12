@@ -1,4 +1,4 @@
-#include "Z80.h"
+#include "CPU.h"
 #include "MMU.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -346,7 +346,7 @@ void dispatch(Z80* cpu, int opcode) {
 
 		default:
 			fprintf(stderr, "Missing instruction 0x%02X. Exiting..\n", opcode);
-			Z80_printCPUState(cpu);
+			//Z80_printCPUState(cpu);
 			exit(1);
 	}
 }

@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdint.h>
 #include "MMU.h"
-#include "Z80.h"
+#include "CPU.h"
 
 int main(int argc, char** argv) {
 	if (argc == 2) {
