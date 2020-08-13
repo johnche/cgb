@@ -43,11 +43,17 @@ uint8_t readByte(uint16_t address) {
 	return *addressBus(address);
 }
 
-uint16_t readShort(uint16_t address) { // Z80 word size is 8 bits
+uint16_t readShort(uint16_t address) {
+	// Z80 word size is 8 bits.
+	// Using short, from short integer, to denote 16 bit.
 	return readByte(address) | (readByte(address + 1) << 8);
 }
 
-void loadCartridge(char* path) {
+void writeByte(uint16_t address, uint8_t byte) {
+	*addressBus(address) = byte;
+}
+
+void loadROM(char* path) {
 	FILE* f = fopen(path, "rb");
 	if (f == NULL) {
 		printf("Failed to load ROM. Exiting..\n");
