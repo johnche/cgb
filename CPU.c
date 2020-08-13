@@ -49,15 +49,18 @@ Z80* Z80_init() {
 }
 
 void Z80_printCPUState(Z80* cpu) {
-	printf("8-bit Register states:\n");
+	printf("\n====================");
+	printf("\n8-bit Register states:\n");
 	printf("A: %d, B: %d, C: %d, D: %d, ", cpu->a, cpu->b, cpu->c, cpu->d);
-	printf("E: %d, H: %d, L: %d, F: %d\n", cpu->e, cpu->h, cpu->l, cpu->d);
+	printf("E: %d, H: %d, L: %d, F: %d\n\n", cpu->e, cpu->h, cpu->l, cpu->d);
 	printf("16-bit Register states:\n");
 	printf("AF: %d, BC: %d, DE: %d, HL: %d\n", getAF(cpu), getBC(cpu), getDE(cpu), getHL(cpu));
+	printf("PC: %d, SP: %d\n\n", cpu->pc, cpu->sp);
 	printf("Clock:\n");
-	printf("m: %d, t: %d\n", cpu->clock.m, cpu->clock.t);
+	printf("m: %d, t: %d\n\n", cpu->clock.m, cpu->clock.t);
 	printf("Intermediate clock:\n");
 	printf("m: %d, t: %d\n", cpu->m, cpu->t);
+	printf("====================\n\n");
 }
 
 /* m is a machine cycle, which are 4 clock cycles */
